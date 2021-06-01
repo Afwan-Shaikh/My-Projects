@@ -1,0 +1,60 @@
+Step-1
+Connect your M5stack Core2 with the sensor module
+sensor module includes sensors for Temperature, Pressure & Humidity
+
+
+Step-2
+Turn on the device and connect with the Wifi SSID
+
+
+Step-3
+Programming the Device(M5stack Core2) as per the attached image
+
+*Provide your WiFi SSID and Password
+*If you want you can change the time server if  you want (ntp is selected)
+*Under host Provide the end point of the AWS IoT core
+*Under Key file Select the generated key file from AWS IoT
+*Under cert file select the generated certificates from Aws IoT
+
+
+
+Create a Thing in Aws IoT with auto generated values for certificates, public and private key along with the root-ca certificates
+
+Generate Policy for the Certificate following the below syntax
+arn:aws:iot:<region-name>:<Account-ID>:*
+
+For Policy Action Allow all actions on AWS IoT specifying a *(wild card)
+
+* Test the MQTT Client with subscribing to the m5core2_telemetry topic
+
+(If Successful proceed with the below steps)
+
+
+
+In IoT rule:
+
+Create a rule to push push all incoming messages from the Aws IoT to TimeStream Database
+
+Select * from '<topic name>'(Should be enclosed with single quotes)
+
+Specify the Time Stream DB and Table to push data into
+
+
+
+Create a Aws TimeStream Database & create a table under it 
+
+While Creating Table you can set the retention period of the Data.
+
+
+
+Create a user in AWS Single Sign on which will allow that user to access particular application in the AWS
+
+Provision a AWS Grafana Workspace & the Assign the above user to the workspace
+
+Login into the Grafana workspace and select storages to Time stream
+
+Inside the Query editor fire the query you want to create your dashboard with..
+(Follow Query file for Details)
+
+
+-----------------------------------------------------XXXXX---------------------------------------------------------------------------------------

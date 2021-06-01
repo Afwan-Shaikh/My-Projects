@@ -1,0 +1,25 @@
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'temperature'
+
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'pressure'
+
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'humidity'
+
+
+
+
+
+
+
+
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'temperature' order by time desc limit 1 (this query will return the most recent value of the temperature)
+
+
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'humidity' order by time desc limit 1 (this query will return the most recent value of the humidity)
+
+
+select time,measure_value::double from <database_name>.<table_name> where measure_name like 'pressure' order by time desc limit 1 (this query will return the most recent value of the pressure)
+
+
+
+Panel Type can be selected as you desire to 
+(Time Stream, Stat, Line, Stacked etc)
