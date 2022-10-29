@@ -1,0 +1,54 @@
+Follow this Script to Deploy The Proof of Concept for the Web-Application
+sudo apt update
+sudo add-apt-repository ppa:ondrej/php
+sudo apt install apache2 mysql-client php7.4 libapache2-mod-php7.4
+sudo apt install graphviz aspell ghostscript clamav php7.4-pspell php7.4-curl php7.4-gd php7.4-intl php7.4-mysql php7.4-xml php7.4-xmlrpc php7.4-ldap php7.4-zip php7.4-soap php7.4-mbstring
+sudo service apache2 restart
+sudo service apache2 status
+sudo apt install git
+cd /opt
+ls
+sudo git clone git://git.moodle.org/moodle.git
+ls
+cd moodle/
+ls
+sudo git branch -a
+sudo git branch --track MOODLE_400_STABLE origin/MOODLE_400_STABLE
+sudo git checkout MOODLE_400_STABLE
+sudo cp -R /opt/moodle /var/www/html/
+sudo mkdir /var/moodledata
+sudo chown -R www-data /var/moodledata
+sudo chmod -R 777 /var/moodledata
+sudo nano /etc/mysql/mysql.config.d/mysqld.cnf
+sudo mysql -h cms-db.caoiluhyyuxm.ap-south-1.rds.amazonaws.com -u admin -p
+CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+Show databases;
+cd /var/www/html/moodle/
+cd admin/cli
+sudo php7.4 ./install.php
+sudo chmod -R 0755 /var/www/html/moodle
+curl ifconfig.co
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+sudo service apache2 restart
+
+
+
+
+****Configuration File for moodle Application****
+sudo nano /var/www/html/moodle/config.php
+$CFG -> sslproxy = 1;  (if loadbalancer given certificate for https)
+
+****Mount Point for EFS**********
+data.directory = /var/www/html/moodledata
+sudo chown -R www-data /var/www/html/moodledata
+sudo chmod -R 777 /var/www/html/moodledata
+
+
+Using EFS
+
+sudo apt install nfs-common
+
+mount using the nfs client or Amazon EFS mount Helper
+
+Configure /etc/fstab to auto mount the file system
+
